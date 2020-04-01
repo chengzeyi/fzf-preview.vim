@@ -31,3 +31,7 @@ you have `let g:fzf_command_prefix = 'FZF'` in your `.vimrc`.
 - `FZFBTags`: Search all the tags of the current buffer and previewing their context.
 - `FZFMarks`: Search all the positions of vim's marks and preview their context.
 - `FZFWindows`: Search all the vim's windows and preview their content.
+
+## Preview
+
+![Screenshot](image/fzf-preview.png)
