@@ -5,9 +5,9 @@ fzf :heart: preview
 ## Preview Everywhere
 
 The preview functionality of **fzf** in vim is great. However, only limited
-commands of **fzf.vim** provide a preview window that you can press **?** key
+commands of **fzf.vim** provide a preview window that you can press `?` key
 to toggle. If you want to enhance your **fzf.vim** by enabling the preview
-window everywhere, try this plugin! All of the commands support a **!** as one
+window everywhere, try this plugin! All of the commands support a `!` as one
 of their arguments to start a full-screen window.
 
 **NOTE** This plugin depends on **fzf** and **fzf.vim** so you need to install
@@ -20,6 +20,10 @@ plugin if you have `let g:fzf_command_prefix = 'FZF'` in your `.vimrc`.
 `--excmd=number` to your ctags' command-line arguments to help locate the line
 position of the tag. You also need to make sure the tags file is in the current
 vim since the file paths in the tags file might be relavent paths.
+
+### Usage
+
+Run a commmand, then press `?` to toggle preview.
 
 ## Commands
 
