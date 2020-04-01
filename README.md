@@ -18,7 +18,8 @@ plugin if you have `let g:fzf_command_prefix = 'FZF'` in your `.vimrc`.
 
 **NOTE** To enable correct preview with `FZFTags`, you may need to add
 `--excmd=number` to your ctags' command-line arguments to help locate the line
-position of the tag.
+position of the tag. You also need to make sure the tags file is in the current
+vim since the file paths in the tags file might be relavent paths.
 
 ## Commands
 
