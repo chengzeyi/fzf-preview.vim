@@ -17,8 +17,8 @@ commands from **fzf.vim** may override the commands provided by this plugin if
 you have `let g:fzf_command_prefix = 'FZF'` in your `.vimrc`.
 
 **NOTE** To enable correct preview with `FZFTags`, you may need to add
-`--excmd=number` or `--excmd=mixed` to your ctags' command-line arguments to
-help locate the line position of the tag.
+`--excmd=number` to your ctags' command-line arguments to help locate the line
+position of the tag.
 
 ## Commands
 
