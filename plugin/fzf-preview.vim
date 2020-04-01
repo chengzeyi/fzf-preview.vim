@@ -45,7 +45,7 @@ command! -bang -nargs=* FZFRg
             \     <bang>0
             \)
 command! -bang -nargs=* FZFHistory
-            \ call FZFHistory(<q-args>,
+            \ call s:history(<q-args>,
             \     s:p(<bang>0),
             \     <bang>0)
 function! s:history(arg, options, bang) abort
