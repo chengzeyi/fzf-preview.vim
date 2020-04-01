@@ -1,5 +1,5 @@
 if exists('s:loaded')
-    finish
+    " finish
 endif
 let s:loaded = 1
 
@@ -72,7 +72,7 @@ command! -bang -nargs=* FZFBLines
             \ }, <bang>0)
 command! -bang -nargs=* FZFTags
             \ call fzf#vim#tags(<q-args>, {
-            \     'options': '--preview-window=' . (<bang>0 ? 'up:60%' : '50%:hidden') .
+            \     'options': '--delimiter "\t" --preview-window=' . (<bang>0 ? 'up:60%' : '50%:hidden') .
             \                ' --preview "
             \                     tail -n +0\$(echo {3} | sed -nr \"s/([0-9]+);\\\"/\1/p\") {2} |
             \                     head -n $(tput lines)"' .
@@ -81,7 +81,7 @@ command! -bang -nargs=* FZFTags
             \ }, <bang>0)
 command! -bang -nargs=* FZFBTags
             \ call fzf#vim#buffer_tags(<q-args>, {
-            \     'options': '--preview-window=' . (<bang>0 ? 'right:50%' : '60%:hidden') .
+            \     'options': '--delimiter "\t" --preview-window=' . (<bang>0 ? 'right:50%' : '60%:hidden') .
             \                ' --preview "
             \                     tail -n +0\$(echo {3} | sed -nr \"s/([0-9]+);\\\"/\1/p\") {2} |
             \                     head -n $(tput lines)"' .
