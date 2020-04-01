@@ -75,15 +75,14 @@ command! -bang -nargs=* FZFBTags
             \     s:p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t"]}),
             \ }, <bang>0)
 command! -bar -bang FZFMarks
-            \ call fzf#vim#marks(
-            \     s:p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t"]}),
+            \ call fzf#vim#marks({
             \     'options': '--preview-window=' . (<bang>0 ? 'up:60%' : '50%:hidden') .
             \                ' --preview "
             \                     tail -n +{2} $([ -r {4} ] && echo {4} || echo ' . expand('%') . ') |
             \                     head -n $(tput lines)"' .
             \                 (<bang>0 ? '' : ' --bind "?:toggle-preview"') .
             \                 ' -m --layout=default'
-            \ , <bang>0)
+            \ }, <bang>0)
 command! -bar -bang FZFWindows
             \ call fzf#vim#windows({
             \     'options': '--preview-window=' . (<bang>0 ? 'up:60%' : '50%:hidden') .
