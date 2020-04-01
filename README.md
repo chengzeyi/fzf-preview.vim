@@ -20,7 +20,7 @@ you have `let g:fzf_command_prefix = 'FZF'` in your `.vimrc`.
 
 - `FZF\FZFFiles`: Search files with previewing file content.
 - `FZFLocate`: Use your system's file database to search files with previewing file content.
-- `FZFGrep`: Use git grep to search your file content and preview the context of lines.
+- `FZFGGrep`: Use git grep to search your file content and preview the context of lines.
 - `FZFGrep`: Use grep to search your file content and preview the context of lines.
 - `FZFAg`: Use silversearcher-ag to search your file content and preview the context of lines.
 - `FZFRg`: Use ripgrep to search your file content and preview the context of lines.
