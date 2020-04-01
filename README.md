@@ -10,11 +10,11 @@ to active. If you want to enhance your **fzf.vim** by enabling the preview
 window everywhere, try this plugin! All of the commands support a **!** as one
 of their arguments to start a full-screen window.
 
-**NOTE** This plugin depends on **fzf** and **fzf.vim** so you need to install them
-first. You may also need to put the line to load this plugin after the line of
-installing **fzf.vim** in your plugin manager's configuration since the
-commands from **fzf.vim** may override the commands provided by this plugin if
-you have `let g:fzf_command_prefix = 'FZF'` in your `.vimrc`.
+**NOTE** This plugin depends on **fzf** and **fzf.vim** so you need to install
+them first. You may also need to put the line to load this plugin after the
+line of installing **fzf.vim** in your plugin manager's configuration file
+since the commands from **fzf.vim** may override the commands provided by this
+plugin if you have `let g:fzf_command_prefix = 'FZF'` in your `.vimrc`.
 
 **NOTE** To enable correct preview with `FZFTags`, you may need to add
 `--excmd=number` to your ctags' command-line arguments to help locate the line

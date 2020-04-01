@@ -1,5 +1,5 @@
 if exists('s:loaded')
-    " finish
+    finish
 endif
 let s:loaded = 1
 
@@ -92,7 +92,7 @@ command! -bar -bang FZFMarks
             \ call fzf#vim#marks({
             \     'options': '--preview-window=' . (<bang>0 ? 'up:60%' : '50%:hidden') .
             \                ' --preview "
-            \                     tail -n +{2} {4} ' . expand('%') . ' |
+            \                     tail -n +{2} $([ -r {4} ] && echo {4} || echo ' . expand('%') . ') |
             \                     head -n $(tput lines)"' .
             \                 (<bang>0 ? '' : ' --bind "?:toggle-preview"') .
             \                 ' -m --layout=default'
@@ -101,7 +101,7 @@ command! -bar -bang FZFWindows
             \ call fzf#vim#windows({
             \     'options': '--preview-window=' . (<bang>0 ? 'up:60%' : '50%:hidden') .
             \                ' --preview "
-            \                     head -n $(tput lines) {3} {4}"' .
+            \                     head -n $(tput lines) $([ -r {3} ] && echo {3} || echo {4})"' .
             \                 (<bang>0 ? '' : ' --bind "?:toggle-preview"') .
             \                 ' -m --layout=default'
             \ }, <bang>0)
