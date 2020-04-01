@@ -1,10 +1,10 @@
 if exists('s:loaded')
-    " finish
+    finish
 endif
 let s:loaded = 1
 
 function! s:p(bang, ...)
-  let preview_window = get(g:, 'fzf_preview_window', 'right')
+  let preview_window = get(g:, 'fzf_preview_window', 'right:60%:hidden')
   if len(preview_window)
     return call('fzf#vim#with_preview', a:000 + [preview_window, '?'])
   endif
