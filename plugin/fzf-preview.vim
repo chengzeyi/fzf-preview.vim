@@ -71,9 +71,9 @@ command! -bang -nargs=* FZFTags
             \     s:p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t"]}),
             \     <bang>0)
 command! -bang -nargs=* FZFBTags
-            \ call fzf#vim#buffer_tags(<q-args>, {
+            \ call fzf#vim#buffer_tags(<q-args>,
             \     s:p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t"]}),
-            \ }, <bang>0)
+            \     <bang>0)
 command! -bar -bang FZFMarks
             \ call fzf#vim#marks({
             \     'options': '--preview-window=' . (<bang>0 ? 'up:60%' : '50%:hidden') .
