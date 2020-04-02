@@ -3,15 +3,18 @@ if exists('s:loaded')
 endif
 let s:loaded = 1
 
-function! s:p(bang, ...)
-  let preview_window = get(g:, 'fzf_preview_window', 'right:60%:hidden')
+function! s:p(bang, ...) abort
+  let preview_window = get(g:, 'fzf_preview_window', 'right')
   if len(preview_window)
     return call('fzf#vim#with_preview', a:000 + [preview_window, '?'])
   endif
   return {}
 endfunction
 
-command! -bang -nargs=? -complete=dir FZF FZFFiles <args>
+command! -bang -nargs=? -complete=dir FZF
+            \ call fzf#vim#files(<q-args>,
+            \     s:p(<bang>0),
+            \     <bang>0)
 command! -bang -nargs=? -complete=dir FZFFiles
             \ call fzf#vim#files(<q-args>,
             \     s:p(<bang>0),
@@ -75,19 +78,25 @@ command! -bang -nargs=* FZFBTags
             \     s:p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t"]}),
             \     <bang>0)
 command! -bar -bang FZFMarks
-            \ call fzf#vim#marks({
-            \     'options': '--preview-window=' . (<bang>0 ? 'up:60%' : '50%:hidden') .
-            \                ' --preview "
-            \                     tail -n +{2} \$([ -r \$(echo {4} | sed \"s#^~#$HOME#\") ] && (echo {4} | sed \"s#^~#$HOME#\") || echo ' . expand('%') . ') |
-            \                     head -n \$(tput lines)"' .
-            \                 (<bang>0 ? '' : ' --bind "?:toggle-preview"') .
-            \                 ' -m --layout=default'
-            \ }, <bang>0)
+            \ call fzf#vim#marks(s:p_marks(), <bang>0)
+function! s:p_marks() abort
+  let preview_window = get(g:, 'fzf_preview_window', 'right')
+  if len(preview_window)
+    return {'options': '--bind "?:toggle-preview" --preview-window="' . preview_window .
+          \ '" --preview "tail -n +{2} \$([ -r \$(echo {4} | sed \"s#^~#$HOME#\") ]&& (echo {4} | sed \"s#^~#$HOME#\") || echo ' . expand('%') . ') | head -n \$(tput lines)"'
+          \ }
+  endif
+  return {}
+endfunction
 command! -bar -bang FZFWindows
-            \ call fzf#vim#windows({
-            \     'options': '--preview-window=' . (<bang>0 ? 'up:60%' : '50%:hidden') .
-            \                ' --preview "
-            \                     head -n \$(tput lines) \$([ -r {3} ] && echo {3} || echo {4})"' .
-            \                 (<bang>0 ? '' : ' --bind "?:toggle-preview"') .
-            \                 ' -m --layout=default'
-            \ }, <bang>0)
+            \ call fzf#vim#windows(s:p_windows(), <bang>0)
+function! s:p_windows() abort
+  let preview_window = get(g:, 'fzf_preview_window', 'right')
+  if len(preview_window)
+    return {'options': '--bind "?:toggle-preview" --preview-window="' . preview_window .
+          \ '" --preview "head -n \$(tput lines) \$([ -r {3} ] && echo {3} || echo {4})"'
+          \ }
+  endif
+  return {}
+endfunction
+
