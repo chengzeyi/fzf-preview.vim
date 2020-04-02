@@ -64,7 +64,7 @@ endfunction
 "             \ }, <bang>0)
 command! -bang -nargs=* FZFBLines
             \ call fzf#vim#buffer_lines(<q-args>,
-            \     s:p(<bang>0, {'placeholder': expand('%') . ':{1}'}),
+            \     s:p(<bang>0, {'placeholder': fzf#shellescape(expand('%')) . ':{1}'}),
             \     <bang>0)
 command! -bang -nargs=* FZFTags
             \ call fzf#vim#tags(<q-args>,
