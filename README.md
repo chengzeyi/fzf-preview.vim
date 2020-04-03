@@ -22,6 +22,9 @@ position of the tag. You also need to make sure the tags file is in the current
 vim since the file paths in the tags file might be relavent paths, or you need
 to add `--tag-relative=no` to the arguments.
 
+**NOTE** All the commands may require a **Unix-like** environment, or a **bash** emulator
+on **Windows** (**WSL** or something else, and is in your `$PATH` variable).
+
 ### Usage
 
 Run a commmand, then press `?` to toggle preview.
@@ -38,8 +41,8 @@ Run a commmand, then press `?` to toggle preview.
 - `FZFBLines`: Search all lines of the current buffer and previewing their context.
 - `FZFTags`: Search all the tags in vim's `tags` and previewing their context.
 - `FZFBTags`: Search all the tags of the current buffer and previewing their context.
-- `FZFMarks`: Search all the positions of vim's marks and preview their context. (**Require a Unix-like environment**)
-- `FZFWindows`: Search all the vim's windows and preview their content. (**Require a Unix-like environment**)
+- `FZFMarks`: Search all the positions of vim's marks and preview their context.
+- `FZFWindows`: Search all the vim's windows and preview their content.
 
 ### Differences between Current fzf.vim's Builtin Commands with preview
 
@@ -49,5 +52,13 @@ Run a commmand, then press `?` to toggle preview.
 - `FZFBLines`, `FZFTags`, `FZFMarks` and `FZFWindows`: The original fzf.vim does not support preview with those.
 
 ## Screenshot
+
+## Configuration
+
+You can use the native **fzf.vim**'s preview window configuration variable `g:fzf_preview_window`
+to customize the layout of the preview window, for example, `let g:fzf_preview_window = 'top:60%'`
+to put the preview window at the top 60% of the fzf terminal buffer, the default value is `right`.
+
+If you don't want the preview window to be opened by default, you can set `let g:fzf_preview_window = right:hidden`.
 
 ![Screenshot](image/fzf-preview.png)
