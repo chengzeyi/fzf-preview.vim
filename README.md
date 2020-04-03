@@ -51,8 +51,6 @@ Run a commmand, then press `?` to toggle preview.
 - `FZFGGrep`, `FZFGrep`: Use `git grep` and `grep` to search file content, which the original fzf.vim doesn't provide.
 - `FZFBLines`, `FZFTags`, `FZFMarks` and `FZFWindows`: The original fzf.vim does not support preview with those.
 
-## Screenshot
-
 ## Configuration
 
 You can use the native **fzf.vim**'s preview window configuration variable `g:fzf_preview_window`
@@ -60,5 +58,7 @@ to customize the layout of the preview window, for example, `let g:fzf_preview_w
 to put the preview window at the top 60% of the fzf terminal buffer, the default value is `right`.
 
 If you don't want the preview window to be opened by default, you can set `let g:fzf_preview_window = right:hidden`.
+
+## Screenshot
 
 ![Screenshot](image/fzf-preview.png)
