@@ -48,9 +48,7 @@ command! -bang -nargs=* FZFRg
       \     <bang>0
       \)
 command! -bang -nargs=* FZFHistory
-      \ call s:history(<q-args>,
-      \     s:p(<bang>0),
-      \     <bang>0)
+      \ call s:history(<q-args>, {}, <bang>0)
 function! s:history(arg, options, bang) abort
   let bang = a:bang || a:arg[len(a:arg) - 1] ==# '!'
   if a:arg[0] ==# ':'
@@ -58,7 +56,7 @@ function! s:history(arg, options, bang) abort
   elseif a:arg[0] ==# '/'
     call fzf#vim#search_history(a:options, bang)
   else
-    call fzf#vim#history(a:options, bang)
+    call fzf#vim#history(s:p(bang), bang)
   endif
 endfunction
 " command! -bang -nargs=* FZFLines
