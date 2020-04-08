@@ -43,6 +43,7 @@ Run a commmand, then press `?` to toggle preview.
 - `FZFBTags`: Search all the tags of the current buffer and previewing their context.
 - `FZFMarks`: Search all the positions of vim's marks and preview their context.
 - `FZFWindows`: Search all the vim's windows and preview their content.
+- `FZFQuickFix/FZFLocList`': Search VIM's QuickFix/LocList entries with preview!
 
 ### Differences between Current fzf.vim's Builtin Commands with preview
 
@@ -50,6 +51,7 @@ Run a commmand, then press `?` to toggle preview.
 - The original `Ag` and `Rg` commands will also do fuzzy match on file names, which is annoying sometimes. Here they would only match lines.
 - `FZFGGrep`, `FZFGrep`: Use `git grep` and `grep` to search file content, which the original fzf.vim doesn't provide.
 - `FZFBLines`, `FZFTags`, `FZFMarks` and `FZFWindows`: The original fzf.vim does not support preview with those.
+- `FZFQuickFix/FZFLocList`: The original fzf.vim does not provide these commands.
 
 ## Configuration
 
