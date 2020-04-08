@@ -31,8 +31,11 @@ function! s:format_error(item) abort
                 \ . ':' . substitute(a:item.text, '\v^\s*', ' ', '')
 endfunction
 
-function! s:error_handler(err) abort
-    let match = matchlist(a:err, '\v^([^:]*):(\d+)?:(\d+)?:')[1:3]
+function! s:error_handler(errs) abort
+    if len(a:errs) < 2
+        return
+    endif
+    let match = matchlist(a:errs[1], '\v^([^:]*):(\d+)?:(\d+)?:')[1:3]
     if empty(match) || empty(match[0])
         return
     endif
@@ -43,6 +46,12 @@ function! s:error_handler(err) abort
 
     let lnum = empty(match[1]) ? 1 : str2nr(match[1])
     let col = empty(match[2]) ? 1 : str2nr(match[2])
+
+    normal! m'
+    let cmd = fzf_preview#action_for(a:errs[0])
+    if !empty(cmd) && stridx('edit', cmd) < 0
+        execute 'silent' cmd
+    endif
 
     execute 'buffer' bufnr(match[0])
     call cursor(lnum, col)
@@ -63,10 +72,11 @@ endfunction
 " endfunction
 
 function! fzf_preview#quickfix#run(loc, bang) abort
+    let expect_keys = join(keys(get(g:, 'fzf_action', fzf_preview#get_default_action())), ',')
     call fzf#run(fzf#wrap(a:loc ? 'loclist' : 'quickfix', fzf_preview#p(a:bang, {
                 \ 'source': map(a:loc ? getloclist(0) : getqflist(), 's:format_error(v:val)'),
-                \ 'sink': function('s:error_handler'),
-                \ 'options': printf('--prompt="%s> "', (a:loc ? 'LocList' : 'QuickFix')) . ' --delimiter : --layout=reverse-list',
+                \ 'sink*': function('s:error_handler'),
+                \ 'options': [printf('--prompt="%s> "', (a:loc ? 'LocList' : 'QuickFix')), '+m', '--delimiter=:', '--layout=reverse-list', '--expect=' . expect_keys],
                 \ 'placeholder': '{1}:{2}'
                 \ })))
 
