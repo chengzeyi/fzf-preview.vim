@@ -1,3 +1,6 @@
+let s:cpo_save = &cpo
+set cpo&vim
+
 if exists('s:loaded')
   " finish
 endif
@@ -69,3 +72,6 @@ command! -bar -bang FZFQuickFix
       \ call fzf_preview#quickfix(0, <bang>0)
 command! -bar -bang FZFLocList
       \ call fzf_preview#quickfix(1, <bang>0)
+
+let &cpo = s:cpo_save
+unlet s:cpo_save
