@@ -2,7 +2,7 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 if exists('s:loaded')
-  " finish
+  finish
 endif
 let s:loaded = 1
 
@@ -20,14 +20,14 @@ command! -bang -nargs=+ -complete=dir FZFLocate
       \     <bang>0)
 command! -bang -nargs=* FZFGGrep
       \ call fzf#vim#grep(
-      \    'git grep --line-number --color=always '.shellescape(<q-args>),
+      \    'git grep --line-number ^ --color=always '.shellescape(<q-args>),
       \     0,
       \     fzf_preview#p(<bang>0, {'options': '--delimiter : --nth 3..',
       \                 'dir': systemlist('git rev-parse --show-toplevel')[0]}),
       \     <bang>0)
 command! -bang -nargs=* FZFGrep
       \ call fzf#vim#grep(
-      \    'grep --line-number --color=always -r '.shellescape(<q-args>).' .',
+      \    'grep --line-number ^ --color=always -r '.shellescape(<q-args>).' .',
       \     0,
       \     fzf_preview#p(<bang>0, {'options': '--delimiter : --nth 3..'}),
       \     <bang>0)
