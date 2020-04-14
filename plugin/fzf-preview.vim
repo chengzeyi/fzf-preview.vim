@@ -54,7 +54,7 @@ command! -bang -nargs=* FZFBLines
       \     <bang>0)
 command! -bang -nargs=* FZFTags
       \ call fzf#vim#tags(<q-args>,
-      \     fzf_preview#p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t"]}),
+      \     fzf_preview#p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t", '-n', '1']}),
       \     <bang>0)
 command! -bang -nargs=* FZFBTags
       \ call fzf#vim#buffer_tags(<q-args>,
