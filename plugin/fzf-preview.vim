@@ -50,7 +50,8 @@ command! -bang -nargs=* FZFHistory
 "             \ }, <bang>0)
 command! -bang -nargs=* FZFBLines
       \ call fzf#vim#buffer_lines(<q-args>,
-      \     fzf_preview#p(<bang>0, {'placeholder': fzf#shellescape(expand('%')) . ':{1}'}),
+      \     fzf_preview#p(<bang>0, {'placeholder': fzf#shellescape(expand('%')) . ':{1}',
+      \                 'options': '--preview-window +{1}-5'}),
       \     <bang>0)
 command! -bang -nargs=* FZFTags
       \ call fzf#vim#tags(<q-args>,
@@ -60,14 +61,16 @@ command! -bang -nargs=* FZFBTags
       \ call fzf#vim#buffer_tags(<q-args>,
       \     fzf_preview#p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t"]}),
       \     <bang>0)
-command! -bar -bang FZFMarks
-      \ call fzf#vim#marks(
-      \     fzf_preview#p(<bang>0, {'placeholder': '$([ -r $(echo {4} | sed "s#^~#$HOME#") ] && echo {4} || echo ' . fzf#shellescape(expand('%')) . '):{2}'}),
-      \     <bang>0)
-command! -bar -bang FZFWindows
-      \ call fzf#vim#windows(
-      \     fzf_preview#p(<bang>0, {'placeholder': '$([ -r $(echo {3} | sed "s#^~#$HOME#") ] && echo {3} || echo {4})'}),
-      \     <bang>0)
+if has('unix')
+  command! -bar -bang FZFMarks
+        \ call fzf#vim#marks(
+        \     fzf_preview#p(<bang>0, {'placeholder': '$([ -r $(echo {4} | sed "s#^~#$HOME#") ] && echo {4} || echo ' . fzf#shellescape(expand('%')) . '):{2}'}),
+        \     <bang>0)
+  command! -bar -bang FZFWindows
+        \ call fzf#vim#windows(
+        \     fzf_preview#p(<bang>0, {'placeholder': '$([ -r $(echo {3} | sed "s#^~#$HOME#") ] && echo {3} || echo {4})'}),
+        \     <bang>0)
+endif
 command! -bar -bang FZFQuickFix
       \ call fzf_preview#quickfix(0, <bang>0)
 command! -bar -bang FZFLocList
