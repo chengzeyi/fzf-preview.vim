@@ -61,8 +61,8 @@ Run a command, then press `?` to toggle preview.
 ## Configuration
 
 You can use the native **fzf.vim**'s preview window configuration variable `g:fzf_preview_window`
-to customize the layout of the preview window, for example, `let g:fzf_preview_window = 'top:60%'`
-to put the preview window at the top 60% of the fzf terminal buffer, the default value is `right`. If you don't want the preview window to be opened by default, you can set `let g:fzf_preview_window = right:hidden`.
+to customize the layout of the preview window, for example, `let g:fzf_preview_window = 'up:60%'`
+to put the preview window at the top 60% of the fzf terminal buffer, the default value is `right`. If you don't want the preview window to be opened by default, you can set `let g:fzf_preview_window = right:hidden`. The three valid preview window layouts are `up`, `down`, `left` and `right`.
 ## Screenshot
 
 ![Screenshot](image/fzf-preview.png)
