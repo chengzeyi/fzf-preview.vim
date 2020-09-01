@@ -3,6 +3,11 @@ scriptencoding utf-8
 let s:keep_cpo = &cpoptions
 set cpoptions&vim
 
+if exists('s:loaded')
+    finish
+endif
+let s:loaded = 1
+
 function! s:error_type(type, nr) abort
     if a:type ==? 'W'
         let msg = 'W'
