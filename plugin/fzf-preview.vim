@@ -20,7 +20,7 @@ command! -bang -nargs=+ -complete=dir FZFLocate
       \     <bang>0)
 command! -bang -nargs=* FZFGGrep
       \ call fzf#vim#grep(
-      \    'git grep -I --line-number --color=always '.shellescape(<q-args>),
+      \    'git grep -I --line-number --color=always --recurse-submodules '.shellescape(<q-args>),
       \     0,
       \     fzf_preview#p(<bang>0, {'options': '--delimiter : --nth 3..',
       \                 'dir': systemlist('git rev-parse --show-toplevel')[0]}),
