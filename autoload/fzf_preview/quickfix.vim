@@ -80,12 +80,11 @@ endfunction
 
 function! fzf_preview#quickfix#run(loc, bang) abort
     let expect_keys = join(keys(get(g:, 'fzf_action', fzf_preview#get_default_action())), ',')
-    call fzf#run(fzf#wrap(a:loc ? 'loclist' : 'quickfix', fzf_preview#p(a:bang, {
+    call fzf#run(fzf#wrap(a:loc ? 'loclist' : 'quickfix', {
                 \ 'source': map(a:loc ? getloclist(0) : getqflist(), 's:format_error(v:val)'),
                 \ 'sink*': function('s:error_handler'),
-                \ 'options': [printf('--prompt=%s> ', (a:loc ? 'LocList' : 'QuickFix')), '+m', "--delimiter=\t", '--nth=3..', '--layout=reverse-list', '--expect=' . expect_keys, '--preview-window', '+{2}-5'],
-                \ 'placeholder': '{1}:{2}'
-                \ })))
+                \ 'options': [printf('--prompt=%s> ', (a:loc ? 'LocList' : 'QuickFix')), '+m', "--delimiter=\t", '--nth=3..', '--layout=reverse-list', '--expect=' . expect_keys]
+                \ }, a:bang))
 
     " if g:fzf_quickfix_syntax_on
     "     call s:syntax()
