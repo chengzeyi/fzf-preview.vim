@@ -22,35 +22,37 @@ function! s:error_type(type, nr) abort
     endif
 
     if a:nr <= 0
+        if empty(msg)
+            return ''
+        endif
         return printf('%s', msg)
     endif
-
     return printf('%s[%d]', msg, a:nr)
 endfunction
 
 function! s:format_error(item) abort
-    return (a:item.bufnr ? fnamemodify(bufname(a:item.bufnr), ':~:.') : '')
-                \ . ':' . (a:item.lnum  ? a:item.lnum : '')
-                \ . ':' . (a:item.col ? a:item.col : '')
-                \ . ':' . s:error_type(a:item.type, a:item.nr)
-                \ . ':' . substitute(a:item.text, '\v^\s*', ' ', '')
+    let error_type = s:error_type(a:item.type, a:item.nr)
+    return printf("%s\t%s\t%s",
+                \ (a:item.bufnr ? a:item.bufnr : '') . (empty(error_type) ? '' : (':' . error_type)),
+                \ (a:item.bufnr ? pathshorten(fnamemodify(bufname(a:item.bufnr), ':~:.')) : '') . (a:item.lnum ? (':' . a:item.lnum . (a:item.col ? (':' . a:item.col) : '')) : ''),
+                \ substitute(a:item.text, '\v^\s*', ' ', ''))
 endfunction
 
 function! s:error_handler(errs) abort
     if len(a:errs) < 2
         return
     endif
-    let match = matchlist(a:errs[1], '\v^([^:]*):(\d+)?:(\d+)?:')[1:3]
-    if empty(match) || empty(match[0])
+    let matched = matchlist(a:errs[1], '\v^(\d*).{-}\t.{-}(:\d+)?(:\d+)?\t')[1:3]
+    if empty(matched) || empty(matched[0])
         return
     endif
 
-    if empty(match[1]) && (bufnr(match[0]) == bufnr('%'))
+    if (len(matched) < 2 || empty(matched[1])) && matched[0] == bufnr('%')
         return
     endif
 
-    let lnum = empty(match[1]) ? 1 : str2nr(match[1])
-    let col = empty(match[2]) ? 1 : str2nr(match[2])
+    let lnum = len(matched) < 2 || empty(matched[1]) ? 1 : str2nr(matched[1][1:])
+    let col = len(matched) < 3 || empty(matched[2]) ? 1 : str2nr(matched[2][1:])
 
     normal! m'
     let cmd = fzf_preview#action_for(a:errs[0])
@@ -58,7 +60,7 @@ function! s:error_handler(errs) abort
         execute 'silent' cmd
     endif
 
-    execute 'buffer' bufnr(match[0])
+    execute 'buffer' matched[0]
     call cursor(lnum, col)
     normal! zvzz
 endfunction
@@ -81,7 +83,7 @@ function! fzf_preview#quickfix#run(loc, bang) abort
     call fzf#run(fzf#wrap(a:loc ? 'loclist' : 'quickfix', fzf_preview#p(a:bang, {
                 \ 'source': map(a:loc ? getloclist(0) : getqflist(), 's:format_error(v:val)'),
                 \ 'sink*': function('s:error_handler'),
-                \ 'options': [printf('--prompt=%s> ', (a:loc ? 'LocList' : 'QuickFix')), '+m', '--delimiter=:', '--layout=reverse-list', '--expect=' . expect_keys, '--preview-window', '+{2}-5'],
+                \ 'options': [printf('--prompt=%s> ', (a:loc ? 'LocList' : 'QuickFix')), '+m', "--delimiter=\t", '--nth=3..', '--layout=reverse-list', '--expect=' . expect_keys, '--preview-window', '+{2}-5'],
                 \ 'placeholder': '{1}:{2}'
                 \ })))
 
