@@ -32,9 +32,10 @@ endfunction
 
 function! s:format_error(item) abort
     let error_type = s:error_type(a:item.type, a:item.nr)
-    return printf("%s\t%s\t%s",
-                \ (a:item.bufnr ? a:item.bufnr : '') . (empty(error_type) ? '' : (':' . error_type)),
-                \ (a:item.bufnr ? pathshorten(fnamemodify(bufname(a:item.bufnr), ':~:.')) : '') . (a:item.lnum ? (':' . a:item.lnum . (a:item.col ? (':' . a:item.col) : '')) : ''),
+    return printf("%s\t%s\t%s\t%s",
+                \ a:item.bufnr ? fnamemodify(bufname(a:item.bufnr), ':p') : '',
+                \ a:item.lnum ? string(a:item.lnum) : '1',
+                \ (a:item.bufnr ? pathshorten(fnamemodify(bufname(a:item.bufnr), ':~:.')) : '') . (a:item.lnum ? (':' . a:item.lnum . (a:item.col ? (':' . a:item.col) : '')) : '') . (empty(error_type) ? '' : (':' . error_type)),
                 \ substitute(a:item.text, '\v^\s*', ' ', ''))
 endfunction
 
@@ -80,11 +81,12 @@ endfunction
 
 function! fzf_preview#quickfix#run(loc, bang) abort
     let expect_keys = join(keys(get(g:, 'fzf_action', fzf_preview#get_default_action())), ',')
-    call fzf#run(fzf#wrap(a:loc ? 'loclist' : 'quickfix', {
+    call fzf#run(fzf#wrap(a:loc ? 'loclist' : 'quickfix', fzf_preview#p(a:bang, {
                 \ 'source': map(a:loc ? getloclist(0) : getqflist(), 's:format_error(v:val)'),
                 \ 'sink*': function('s:error_handler'),
-                \ 'options': [printf('--prompt=%s> ', (a:loc ? 'LocList' : 'QuickFix')), '+m', "--delimiter=\t", '--nth=3..', '--layout=reverse-list', '--expect=' . expect_keys]
-                \ }, a:bang))
+                \ 'options': [printf('--prompt=%s> ', (a:loc ? 'LocList' : 'QuickFix')), '+m', "--delimiter=\t", '--nth=4..', '--with-nth=3..', '--layout=reverse-list', '--expect=' . expect_keys, '--preview-window', '+{2}-5'],
+                \ 'placeholder': '{1}:{2}'
+                \ })))
 
     " if g:fzf_quickfix_syntax_on
     "     call s:syntax()
