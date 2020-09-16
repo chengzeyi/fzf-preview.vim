@@ -47,7 +47,7 @@ function! s:error_handler(errs) abort
         return
     endif
 
-    let col = len(matched) < 2 || empty(matched[1]) ? 1 : str2nr(matched[1])
+    let col = len(matched) < 2 || empty(matched[1]) ? 0 : str2nr(matched[1])
     let lnum = len(matched) < 3 || empty(matched[2]) ? 0 : str2nr(matched[2])
 
     normal! m'
@@ -60,7 +60,10 @@ function! s:error_handler(errs) abort
         exe 'silent' 'buffer' matched[0]
     endif
     if lnum
-        call cursor(lnum, col)
+        execute lnum
+        if col
+            execute 'normal!' col.'|'
+        endif
     endif
     normal! zvzz
 endfunction
