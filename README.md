@@ -48,7 +48,7 @@ Run a command, then press `?` to toggle preview.
 - `FZFBTags`: Search all the tags of the current buffer and previewing their context.
 - `FZFMarks`: Search all the positions of vim's marks and preview their context. (Unix only, or won't be defined.)
 - `FZFWindows`: Search all the vim's windows and preview their content. (Unix only, or won't be defined.)
-- `FZFQuickFix/FZFLocList`': Search VIM's QuickFix/LocList entries (without preview).
+- `FZFQuickFix/FZFLocList`': Search VIM's QuickFix/LocList entries with preview.
 
 ## Differences between Current fzf.vim's Builtin Commands with preview
 
