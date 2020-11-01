@@ -24,11 +24,16 @@ function! fzf_preview#action_for(key, ...) abort
 endfunction
 
 function! fzf_preview#p(bang, ...) abort
-    let preview_window = get(g:, 'fzf_preview_window', a:bang && &columns >= 80 || &columns >= 120 ? 'right': 'up')
-    if len(preview_window)
-        return call('fzf#vim#with_preview', a:000 + [preview_window, '?'])
+    let preview_args = get(g:, 'fzf_preview_window', [a:bang && &columns >= 80 || &columns >= 120 ? 'right': 'up', 'ctrl-/'])
+    if empty(preview_args)
+        return { 'options': ['--preview-window', 'hidden'] }
     endif
-    return {}
+
+    " For backward-compatiblity
+    if type(preview_args) == type('')
+        let preview_args = [preview_args]
+    endif
+    return call('fzf#vim#with_preview', extend(copy(a:000), preview_args))
 endfunction
 
 function! fzf_preview#history(arg, options, bang) abort

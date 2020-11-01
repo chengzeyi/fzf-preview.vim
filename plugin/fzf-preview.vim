@@ -51,11 +51,11 @@ command! -bang -nargs=* FZFHistory
 command! -bang -nargs=* FZFBLines
       \ call fzf#vim#buffer_lines(<q-args>,
       \     fzf_preview#p(<bang>0, {'placeholder': fzf#shellescape(expand('%')) . ':{1}',
-      \                 'options': '--preview-window +{1}-5'}),
+      \                 'options': '--preview-window +{1}-/2'}),
       \     <bang>0)
 command! -bang -nargs=* FZFTags
       \ call fzf#vim#tags(<q-args>,
-      \     fzf_preview#p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t", '-n', '1', '--preview-window', '+{3}-5']}),
+      \     fzf_preview#p(<bang>0, {'placeholder': '{2}:{3}', 'options': ['-d', "\t", '-n', '1', '--preview-window', '+{3}-/2']}),
       \     <bang>0)
 command! -bang -nargs=* FZFBTags
       \ call fzf#vim#buffer_tags(<q-args>,
@@ -65,7 +65,7 @@ if has('unix')
   command! -bar -bang FZFMarks
         \ call fzf#vim#marks(
         \     fzf_preview#p(<bang>0, {'placeholder': '$([ -r $(echo {4} | sed "s#^~#$HOME#") ] && echo {4} || echo ' . fzf#shellescape(expand('%')) . '):{2}',
-        \               'options': '--preview-window +{2}-5'}),
+        \               'options': '--preview-window +{2}-/2'}),
         \     <bang>0)
   command! -bar -bang FZFWindows
         \ call fzf#vim#windows(
