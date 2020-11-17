@@ -86,7 +86,7 @@ function! fzf_preview#quickfix#run(loc, bang) abort
     call fzf#run(fzf#wrap(a:loc ? 'loclist' : 'quickfix', fzf_preview#p(a:bang, {
                 \ 'source': map(a:loc ? getloclist(0) : getqflist(), 's:format_error(v:val)'),
                 \ 'sink*': function('s:error_handler'),
-                \ 'options': [printf('--prompt=%s> ', (a:loc ? 'LocList' : 'QuickFix')), '+m', "--delimiter=\t", '--nth=2..', '--with-nth=5..', '--layout=reverse-list', '--expect=' . expect_keys, '--preview-window', '+{4}-5'],
+                \ 'options': [printf('--prompt=%s> ', (a:loc ? 'LocList' : 'QuickFix')), '+m', "--delimiter=\t", '--nth=2..', '--with-nth=5..', '--layout=reverse-list', '--expect=' . expect_keys, '--preview-window', '+{4}-/2'],
                 \ 'placeholder': '{3}:{4}'
                 \ })))
 
