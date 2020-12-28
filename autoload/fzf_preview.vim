@@ -24,7 +24,7 @@ function! fzf_preview#action_for(key, ...) abort
 endfunction
 
 function! fzf_preview#p(bang, ...) abort
-    let preview_args = get(g:, 'fzf_preview_window', [a:bang && &columns >= 80 || &columns >= 120 ? 'right': 'up', 'ctrl-/'])
+    let preview_args = get(g:, 'fzf_preview_window', ['right:50%', 'ctrl-/'])
     if empty(preview_args)
         return { 'options': ['--preview-window', 'hidden'] }
     endif

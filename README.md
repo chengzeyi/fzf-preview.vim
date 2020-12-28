@@ -32,7 +32,7 @@ on **Windows** (**WSL** or something else, and is in your `$PATH` variable).
 
 ## Usage
 
-Run a command, then press `?` to toggle preview.
+Run a command, then press `ctrl-/`(the default key binding) to toggle preview.
 
 ## Commands
 
@@ -61,8 +61,8 @@ Run a command, then press `?` to toggle preview.
 ## Configuration
 
 You can use the native **fzf.vim**'s preview window configuration variable `g:fzf_preview_window`
-to customize the layout of the preview window, for example, `let g:fzf_preview_window = [up:60%, 'ctrl-/']`
-to put the preview window at the top 60% of the fzf terminal buffer and set `ctrl-/` to toggle. If you don't want the preview window to be opened by default, you can set `let g:fzf_preview_window = right:hidden`. The three valid preview window layouts are `up`, `down`, `left` and `right`.
+to customize the layout of the preview window, for example, `let g:fzf_preview_window = ['up:60%', 'ctrl-/']`
+to put the preview window at the top 60% of the fzf terminal buffer and set `ctrl-/` to toggle. If you don't want the preview window to be opened by default, you can set `let g:fzf_preview_window = ['right:hidden', 'ctrl-/']`. The three valid preview window layouts are `up`, `down`, `left` and `right`.
 ## Screenshot
 
 ![Screenshot](image/fzf-preview.png)
